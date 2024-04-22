@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FournisseurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FournisseurRepository::class)]
@@ -28,8 +30,16 @@ class Fournisseur
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\ManyToOne(inversedBy: 'fournisseur')]
-    private ?FournirProduit $fournirProduit = null;
+    /**
+     * @var Collection<int, FournirProduit>
+     */
+    #[ORM\OneToMany(targetEntity: FournirProduit::class, mappedBy: 'fournisseur')]
+    private Collection $fournirProduits;
+
+    public function __construct()
+    {
+        $this->fournirProduits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,15 +106,34 @@ class Fournisseur
         return $this;
     }
 
-    public function getFournirProduit(): ?FournirProduit
+    /**
+     * @return Collection<int, FournirProduit>
+     */
+    public function getFournirProduits(): Collection
     {
-        return $this->fournirProduit;
+        return $this->fournirProduits;
     }
 
-    public function setFournirProduit(?FournirProduit $fournirProduit): static
+    public function addFournirProduit(FournirProduit $fournirProduit): static
     {
-        $this->fournirProduit = $fournirProduit;
+        if (!$this->fournirProduits->contains($fournirProduit)) {
+            $this->fournirProduits->add($fournirProduit);
+            $fournirProduit->setFournisseur($this);
+        }
 
         return $this;
     }
+
+    public function removeFournirProduit(FournirProduit $fournirProduit): static
+    {
+        if ($this->fournirProduits->removeElement($fournirProduit)) {
+            // set the owning side to null (unless already changed)
+            if ($fournirProduit->getFournisseur() === $this) {
+                $fournirProduit->setFournisseur(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

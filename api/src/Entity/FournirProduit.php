@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\FournirProduitRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FournirProduitRepository::class)]
@@ -16,99 +14,51 @@ class FournirProduit
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $quantite = null;
+    private ?float $quantite = null;
 
-    /**
-     * @var Collection<int, Fournisseur>
-     */
-    #[ORM\OneToMany(targetEntity: Fournisseur::class, mappedBy: 'fournirProduit')]
-    private Collection $fournisseur;
+    #[ORM\ManyToOne(inversedBy: 'fournirProduits')]
+    private ?Fournisseur $fournisseur = null;
 
-    /**
-     * @var Collection<int, Produit>
-     */
-    #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'fournirProduit')]
-    private Collection $produit;
-
-    public function __construct()
-    {
-        $this->fournisseur = new ArrayCollection();
-        $this->produit = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'fournirProduits')]
+    private ?Produit $produit = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getQuantite(): ?int
+    public function getQuantite(): ?float
     {
         return $this->quantite;
     }
 
-    public function setQuantite(int $quantite): static
+    public function setQuantite(float $quantite): static
     {
         $this->quantite = $quantite;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Fournisseur>
-     */
-    public function getFournisseur(): Collection
+    public function getFournisseur(): ?Fournisseur
     {
         return $this->fournisseur;
     }
 
-    public function addFournisseur(Fournisseur $fournisseur): static
+    public function setFournisseur(?Fournisseur $fournisseur): static
     {
-        if (!$this->fournisseur->contains($fournisseur)) {
-            $this->fournisseur->add($fournisseur);
-            $fournisseur->setFournirProduit($this);
-        }
+        $this->fournisseur = $fournisseur;
 
         return $this;
     }
 
-    public function removeFournisseur(Fournisseur $fournisseur): static
-    {
-        if ($this->fournisseur->removeElement($fournisseur)) {
-            // set the owning side to null (unless already changed)
-            if ($fournisseur->getFournirProduit() === $this) {
-                $fournisseur->setFournirProduit(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Produit>
-     */
-    public function getProduit(): Collection
+    public function getProduit(): ?Produit
     {
         return $this->produit;
     }
 
-    public function addProduit(Produit $produit): static
+    public function setProduit(?Produit $produit): static
     {
-        if (!$this->produit->contains($produit)) {
-            $this->produit->add($produit);
-            $produit->setFournirProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): static
-    {
-        if ($this->produit->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
-            if ($produit->getFournirProduit() === $this) {
-                $produit->setFournirProduit(null);
-            }
-        }
+        $this->produit = $produit;
 
         return $this;
     }
