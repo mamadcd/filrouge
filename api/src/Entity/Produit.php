@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
@@ -43,9 +45,7 @@ class Produit
     #[ORM\Column]
     private ?float $hauteur_lame = null;
 
-/*  #[ORM\Column]
-    private ?float $hauteur_semelle = null;
-*/
+
     #[ORM\Column]
     private ?float $largeur_semelle = null;
 
@@ -61,14 +61,26 @@ class Produit
     #[ORM\OneToOne(mappedBy: 'produit', cascade: ['persist', 'remove'])]
     private ?LigneCommande $ligneCommande = null;
 
-    #[ORM\ManyToOne(inversedBy: 'produit')]
-    private ?FournirProduit $fournirProduit = null;
+
 
     #[ORM\OneToOne(mappedBy: 'produit', cascade: ['persist', 'remove'])]
     private ?HistoriquePrix $historiquePrix = null;
 
     #[ORM\OneToOne(mappedBy: 'produit', cascade: ['persist', 'remove'])]
     private ?BarreEnStock $barreEnStock = null;
+
+    /**
+     * @var Collection<int, FournirProduit>
+     */
+    #[ORM\OneToMany(targetEntity: FournirProduit::class, mappedBy: 'produit')]
+    private Collection $fournirProduits;
+
+    public function __construct()
+    {
+        $this->fournirProduits = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -88,6 +100,7 @@ class Produit
     }
 
     public function getEpaisseur(): ?float
+
     {
         return $this->epaisseur;
     }
@@ -194,19 +207,7 @@ class Produit
 
         return $this;
     }
-/*
-    public function getHauteurSemelle(): ?float
-    {
-        return $this->hauteur_semelle;
-    }
 
-    public function setHauteurSemelle(float $hauteur_semelle): static
-    {
-        $this->hauteur_semelle = $hauteur_semelle;
-
-        return $this;
-    }
-*/
     public function getLargeurSemelle(): ?float
     {
         return $this->largeur_semelle;
@@ -277,18 +278,6 @@ class Produit
         return $this;
     }
 
-    public function getFournirProduit(): ?FournirProduit
-    {
-        return $this->fournirProduit;
-    }
-
-    public function setFournirProduit(?FournirProduit $fournirProduit): static
-    {
-        $this->fournirProduit = $fournirProduit;
-
-        return $this;
-    }
-
     public function getHistoriquePrix(): ?HistoriquePrix
     {
         return $this->historiquePrix;
@@ -332,4 +321,35 @@ class Produit
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, FournirProduit>
+     */
+    public function getFournirProduits(): Collection
+    {
+        return $this->fournirProduits;
+    }
+
+    public function addFournirProduit(FournirProduit $fournirProduit): static
+    {
+        if (!$this->fournirProduits->contains($fournirProduit)) {
+            $this->fournirProduits->add($fournirProduit);
+            $fournirProduit->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFournirProduit(FournirProduit $fournirProduit): static
+    {
+        if ($this->fournirProduits->removeElement($fournirProduit)) {
+            // set the owning side to null (unless already changed)
+            if ($fournirProduit->getProduit() === $this) {
+                $fournirProduit->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
