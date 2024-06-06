@@ -24,6 +24,10 @@ class Utilisateur
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
+
+
     #[ORM\Column]
     private ?int $telephone = null;
 
@@ -99,6 +103,16 @@ class Utilisateur
     {
         $this->email = $email;
 
+        return $this;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
         return $this;
     }
 

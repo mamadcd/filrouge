@@ -6,6 +6,7 @@ use App\Repository\FournisseurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FournisseurRepository::class)]
 class Fournisseur
@@ -13,20 +14,30 @@ class Fournisseur
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+
+    #[Groups("avoirFournisseur")]
     private ?int $id = null;
 
+    #[Groups("avoirFournisseur")]
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
+
+    #[Groups("avoirFournisseur")]
 
     #[ORM\Column(length: 255)]
     private ?string $rue = null;
 
+    #[Groups("avoirFournisseur")]
+
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
+
+    #[Groups("avoirFournisseur")]
 
     #[ORM\Column]
     private ?int $codePostal = null;
 
+    #[Groups("avoirFournisseur")]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
@@ -135,5 +146,4 @@ class Fournisseur
 
         return $this;
     }
-
 }

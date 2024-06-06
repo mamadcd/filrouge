@@ -6,6 +6,7 @@ use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -13,54 +14,53 @@ class Produit
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("recupereProduit")]
     private ?int $id = null;
-
+    #[Groups("recupereProduit")]
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?float $epaisseur = null;
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?float $hauteur = null;
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?float $largeur = null;
-
+    #[Groups("recupereProduit")]
     #[ORM\Column]
     private ?float $kg_par_m = null;
-
+    #[Groups("recupereProduit")]
     #[ORM\Column]
     private ?float $prix_par_kg = null;
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?int $hebhea = null;
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?float $epaisseur_semelle = null;
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?float $epaisseur_lame = null;
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?float $hauteur_lame = null;
 
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?float $largeur_semelle = null;
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?float $section_cm2 = null;
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?float $diametre_exterieur = null;
-
-    #[ORM\Column]
+    #[Groups("recupereProduit")]
+    #[ORM\Column(nullable: true)]
     private ?float $hauteur_aile = null;
-
     #[ORM\OneToOne(mappedBy: 'produit', cascade: ['persist', 'remove'])]
     private ?HistoriquePrix $historiquePrix = null;
-
 
     /**
      * @var Collection<int, FournirProduit>

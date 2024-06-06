@@ -16,7 +16,7 @@ class Commande
     #[ORM\Column]
     private ?\DateTimeImmutable $date_commande = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $typeCommande = null;
 
     #[ORM\Column(length: 255, nullable: true)]
