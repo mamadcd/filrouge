@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<title>Produit index</title>
+
+{% block body %}
+    <h1>Produit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Epaisseur</th>
+                <th>Hauteur</th>
+                <th>Largeur</th>
+                <th>Kg_par_m</th>
+                <th>Prix_par_kg</th>
+                <th>Hebhea</th>
+                <th>Epaisseur_semelle</th>
+                <th>Epaisseur_lame</th>
+                <th>Hauteur_lame</th>
+                <th>Largeur_semelle</th>
+                <th>Section_cm2</th>
+                <th>Diametre_exterieur</th>
+                <th>Hauteur_aile</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.epaisseur }}</td>
+                <td>{{ produit.hauteur }}</td>
+                <td>{{ produit.largeur }}</td>
+                <td>{{ produit.kgParM }}</td>
+                <td>{{ produit.prixParKg }}</td>
+                <td>{{ produit.hebhea }}</td>
+                <td>{{ produit.epaisseurSemelle }}</td>
+                <td>{{ produit.epaisseurLame }}</td>
+                <td>{{ produit.hauteurLame }}</td>
+                <td>{{ produit.largeurSemelle }}</td>
+                <td>{{ produit.sectionCm2 }}</td>
+                <td>{{ produit.diametreExterieur }}</td>
+                <td>{{ produit.hauteurAile }}</td>
+                <td>
+                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_new') }}">Create new</a>
+{% endblock %}

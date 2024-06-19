@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<title>Produit</title>
+
+{% block body %}
+    <h1>Produit</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ produit.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ produit.nom }}</td>
+            </tr>
+            <tr>
+                <th>Epaisseur</th>
+                <td>{{ produit.epaisseur }}</td>
+            </tr>
+            <tr>
+                <th>Hauteur</th>
+                <td>{{ produit.hauteur }}</td>
+            </tr>
+            <tr>
+                <th>Largeur</th>
+                <td>{{ produit.largeur }}</td>
+            </tr>
+            <tr>
+                <th>Kg_par_m</th>
+                <td>{{ produit.kgParM }}</td>
+            </tr>
+            <tr>
+                <th>Prix_par_kg</th>
+                <td>{{ produit.prixParKg }}</td>
+            </tr>
+            <tr>
+                <th>Hebhea</th>
+                <td>{{ produit.hebhea }}</td>
+            </tr>
+            <tr>
+                <th>Epaisseur_semelle</th>
+                <td>{{ produit.epaisseurSemelle }}</td>
+            </tr>
+            <tr>
+                <th>Epaisseur_lame</th>
+                <td>{{ produit.epaisseurLame }}</td>
+            </tr>
+            <tr>
+                <th>Hauteur_lame</th>
+                <td>{{ produit.hauteurLame }}</td>
+            </tr>
+            <tr>
+                <th>Largeur_semelle</th>
+                <td>{{ produit.largeurSemelle }}</td>
+            </tr>
+            <tr>
+                <th>Section_cm2</th>
+                <td>{{ produit.sectionCm2 }}</td>
+            </tr>
+            <tr>
+                <th>Diametre_exterieur</th>
+                <td>{{ produit.diametreExterieur }}</td>
+            </tr>
+            <tr>
+                <th>Hauteur_aile</th>
+                <td>{{ produit.hauteurAile }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_index') }}">back to list</a>
+
+    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+
+    {{ include('produit/_delete_form.html.twig') }}
+{% endblock %}
