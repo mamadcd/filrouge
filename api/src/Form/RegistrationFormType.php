@@ -51,7 +51,7 @@ class RegistrationFormType extends AbstractType
             ->add('ville')
             ->add('rue')
             ->add('code_postal')
-            ->add('type_utilisateur')
+            //->add('type_utilisateur')
             //->add('role')
             ->add('save', SubmitType::class);
     }
