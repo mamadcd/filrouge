@@ -1,0 +1,6 @@
+npm install react-ionicons
+npm install react-router-dom
+npm install react-icons
+npm install react-router
+npm install aos
+npm install react-chartjs-2 chart.js
