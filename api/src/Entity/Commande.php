@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
@@ -49,28 +50,40 @@ class Commande
         return $this;
     }
 
+    const TYPE_COMMANDE = 'commande';
+    const TYPE_DEVIS = 'devis';
+    const TYPE_ENVIE = 'envie';
     public function getTypeCommande(): ?string
     {
         return $this->typeCommande;
     }
 
-    public function setTypeCommande(?string $typeCommande): static
+    public function setTypeCommande(?string $typeCommande)
     {
-        $this->typeCommande = $typeCommande;
+        if (!in_array($typeCommande, array(self::TYPE_COMMANDE, self::TYPE_DEVIS, self::TYPE_ENVIE))) {
+            throw new InvalidArgumentException('Type de Commande Invalide');
+        }
 
-        return $this;
+        $this->typeCommande = $typeCommande;
     }
+
+    const STATUS_EN_Cours = 'en_cours';
+    const STATUS_TRAITE = 'traite';
+    const STATUS_VALIDE = 'valide';
 
     public function getStatusDevis(): ?string
     {
         return $this->statusDevis;
     }
 
-    public function setStatusDevis(?string $statusDevis): static
-    {
-        $this->statusDevis = $statusDevis;
 
-        return $this;
+    public function setStatusDevis(?string $statusDevis)
+    {
+        //$this->statusDevis = $statusDevis;
+        if (!in_array($statusDevis, array(self::STATUS_EN_Cours, self::STATUS_TRAITE, self::STATUS_VALIDE))) {
+            throw new InvalidArgumentException("status invalide");
+        }
+        $this->statusDevis = $statusDevis;
     }
 
     public function getUtilisateur(): ?Utilisateur

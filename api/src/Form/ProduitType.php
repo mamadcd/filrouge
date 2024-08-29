@@ -30,9 +30,8 @@ class ProduitType extends AbstractType
             ->add('hauteur_aile')
             ->add('historiquePrix', EntityType::class, [
                 'class' => HistoriquePrix::class,
-'choice_label' => 'id',
-            ])
-        ;
+                'choice_label' => 'id',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

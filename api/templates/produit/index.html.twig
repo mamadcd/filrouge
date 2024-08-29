@@ -24,6 +24,7 @@
                 <th>Diametre_exterieur</th>
                 <th>Hauteur_aile</th>
                 <th>actions</th>
+                <th>stock</th>
             </tr>
         </thead>
         <tbody>
@@ -44,6 +45,7 @@
                 <td>{{ produit.sectionCm2 }}</td>
                 <td>{{ produit.diametreExterieur }}</td>
                 <td>{{ produit.hauteurAile }}</td>
+                <td>{{ produit.barreEnStocks }}</td>
                 <td>
                     <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
                     <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>

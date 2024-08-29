@@ -53,7 +53,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $siret = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $type_utilisateur = null;
+    //private ?string $type_utilisateur = null;
+
+
+
     /*
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
@@ -69,6 +72,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    /*     #[ORM\Column(length: 255, nullable: true)]
+    private ?string $apiToken = null;
+ */
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -202,7 +208,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getTypeUtilisateur(): ?string
+    /*  public function getTypeUtilisateur(): ?string
     {
         return $this->type_utilisateur;
     }
@@ -212,7 +218,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         $this->type_utilisateur = $type_utilisateur;
 
         return $this;
-    }
+    } */
 
     /*
     public function getRole(): ?Role
@@ -239,6 +245,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->commandes->contains($commande)) {
             $this->commandes->add($commande);
+
             $commande->setUtilisateur($this);
         }
 
@@ -293,3 +300,16 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 }
+
+/*     public function getApiToken(): ?string
+    {
+        return $this->apiToken;
+    }
+
+    public function setApiToken(?string $apiToken): static
+    {
+        $this->apiToken = $apiToken;
+
+        return $this;
+    }
+} */
